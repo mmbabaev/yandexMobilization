@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ArtistsInfo</string>
+    <string name="search_hint">Поиск</string>
+    <string name="biography">
+        <b>Биография</b>
+    </string>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="100dp"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/artistImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/default_artist" />
+
+    <TextView
+        android:id="@+id/name"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/artistImage"
+        android:layout_toRightOf="@id/artistImage"
+        android:minLines="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textStyle="bold"
+        android:text="Nirvana"/>
+
+    <TextView
+        android:id="@+id/genres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_toEndOf="@id/artistImage"
+        android:layout_toRightOf="@id/artistImage"
+        android:text="rock, alternative" />
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="5 альбомов, 40 песен"
+        android:layout_alignBottom="@+id/artistImage"
+        android:layout_toRightOf="@+id/artistImage"
+        android:layout_toEndOf="@+id/artistImage" />
+
+</RelativeLayout>
