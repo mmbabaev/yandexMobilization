@@ -1,4 +1,4 @@
-package mbabaev.artistsinfo.Model;
+package artistsinfo.model;
 
 import java.io.BufferedReader;
 import java.io.File;

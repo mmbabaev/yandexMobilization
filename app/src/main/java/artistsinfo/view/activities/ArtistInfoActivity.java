@@ -1,17 +1,17 @@
-package mbabaev.artistsinfo.Activities;
+package artistsinfo.view.activities;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import mbabaev.artistsinfo.ImageDownloaderTask;
-import mbabaev.artistsinfo.Model.Artist;
-import mbabaev.artistsinfo.R;
+import artistsinfo.model.Artist;
+import artistsinfo.view.ImageDownloaderTask;
+import artistsinfo.R;
 
 public class ArtistInfoActivity extends AppCompatActivity {
 
@@ -19,6 +19,17 @@ public class ArtistInfoActivity extends AppCompatActivity {
     ImageView artistImageView;
     TextView descriptionTextView;
     TextView genresTextView;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @SuppressWarnings("ConstantConditions")
     @Override

@@ -2,11 +2,7 @@ package mbabaev.artistsinfo;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import mbabaev.artistsinfo.Model.Artist;
-import mbabaev.artistsinfo.Model.Helper;
 
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package mbabaev.artistsinfo;
+package artistsinfo.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -16,7 +16,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import mbabaev.artistsinfo.Model.Artist;
+import artistsinfo.model.Artist;
+import artistsinfo.R;
 
 public class ArtistAdapter extends ArrayAdapter<Artist> {
     private LayoutInflater layoutInflater;
@@ -35,6 +36,7 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
         return filteredArtists.size();
     }
 
+    // for searching artists by name
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -44,7 +46,7 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
                 final ArrayList<Artist> filteredList = new ArrayList<>();
 
                 for (Artist a : artists) {
-                    if (a.getName().toLowerCase().contains(charSequence)) {
+                    if (a.getName().toLowerCase().startsWith(charSequence.toString().toLowerCase())) {
                         filteredList.add(a);
                     }
                 }
@@ -83,14 +85,14 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
         holder.name.setText(artist.getName());
         holder.genres.setText(TextUtils.join(", ", artist.getGenres()));
         holder.info.setText(artist.getInfo());
-        if (holder.image != null) {
-            if (cancelPotentialDownload(artist.getSmallImageURL(), holder.image)) {
-                ImageDownloaderTask task = new ImageDownloaderTask(holder.image);
-                DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
-                holder.image.setImageDrawable(downloadedDrawable);
-                task.execute(artist.getSmallImageURL());
-            }
+
+        if (cancelPotentialDownload(artist.getSmallImageURL(), holder.image)) {
+            ImageDownloaderTask task = new ImageDownloaderTask(holder.image);
+            DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
+            holder.image.setImageDrawable(downloadedDrawable);
+            task.execute(artist.getSmallImageURL());
         }
+
         return convertView;
     }
 
@@ -98,6 +100,12 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
     public Artist getItem(int position) {
         return filteredArtists.get(position);
     }
+
+    /**
+     * stop the possible download in progress on this imageView since a new one is about to start
+     *
+     * @return false is image already have been downloaded
+     */
 
     private static boolean cancelPotentialDownload(String url, ImageView imageView) {
         ImageDownloaderTask imageDownloaderTask = getImageDownloaderTask(imageView);
@@ -125,6 +133,7 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
         return null;
     }
 
+    // model of row in list view
     static class ArtistRowHolder {
         ImageView image;
         TextView name;
@@ -132,6 +141,7 @@ public class ArtistAdapter extends ArrayAdapter<Artist> {
         TextView info;
     }
 
+    // bind download task with content of image view
     static class DownloadedDrawable extends ColorDrawable {
         private final WeakReference<ImageDownloaderTask> imageDownloaderTaskReference;
 

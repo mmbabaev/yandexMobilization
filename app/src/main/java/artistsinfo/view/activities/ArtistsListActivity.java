@@ -1,4 +1,4 @@
-package mbabaev.artistsinfo.Activities;
+package artistsinfo.view.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -23,10 +23,10 @@ import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.List;
 
-import mbabaev.artistsinfo.ArtistAdapter;
-import mbabaev.artistsinfo.Model.Artist;
-import mbabaev.artistsinfo.Model.Helper;
-import mbabaev.artistsinfo.R;
+import artistsinfo.model.Artist;
+import artistsinfo.model.Helper;
+import artistsinfo.view.ArtistAdapter;
+import artistsinfo.R;
 
 public class ArtistsListActivity extends AppCompatActivity {
     final String YANDEX_JSON_URL = "http://cache-default03d.cdn.yandex.net/download.cdn.yandex.net/mobilization-2016/artists.json";
@@ -54,7 +54,7 @@ public class ArtistsListActivity extends AppCompatActivity {
             String jsonContent = Helper.readTextFromFile(artistsFile);
             List<Artist> artists = Artist.loadArtists(jsonContent);
             setArtists(artists);
-        } catch (Exception e) {
+        } catch (Exception e) { // if file doesn't exist
             createJsonProgressDialog();
 
             class JsonLoadTask extends AsyncTask<Void, Void, List<Artist>> {
@@ -87,6 +87,7 @@ public class ArtistsListActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         createJsonProgressDialog();
+                                        //recursive call of json download task, try download again
                                         new JsonLoadTask().execute();
                                     }
                                 });
@@ -100,6 +101,11 @@ public class ArtistsListActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Setup main view after artists list downloading
+     *
+     * @param artists list of artists to show
+     */
     @SuppressWarnings("ConstantConditions")
     public void setArtists(final List<Artist> artists) {
         final ListView listView = (ListView) findViewById(R.id.artistsListView);
@@ -136,6 +142,7 @@ public class ArtistsListActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
+        // hide keyboard when list view on touch
         listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -150,12 +157,17 @@ public class ArtistsListActivity extends AppCompatActivity {
         });
     }
 
-    void tryWriteJsonFile(String result) {
+    /**
+     * Try to write content of json file in cache memory
+     *
+     * @param json content of json file to write
+     */
+    void tryWriteJsonFile(String json) {
         FileOutputStream outputStream = null;
         try {
             File file = new File(getCacheDir(), ARTISTS_JSON);
             outputStream = new FileOutputStream(file);
-            outputStream.write(result.getBytes());
+            outputStream.write(json.getBytes());
         }
         catch (Exception ex) {
             ex.printStackTrace();

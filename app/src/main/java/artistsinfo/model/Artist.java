@@ -1,4 +1,4 @@
-package mbabaev.artistsinfo.Model;
+package artistsinfo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -81,7 +81,7 @@ public class Artist implements Serializable, Comparable<Artist> {
     /**
      * Load list of Artist objects from yandex json file
      *
-     * @param jsonContent json content of yandex file
+     * @param jsonContent text in yandex file
      * @return list of artists
      * @throws IOException
      */

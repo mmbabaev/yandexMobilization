@@ -1,4 +1,4 @@
-package mbabaev.artistsinfo;
+package artistsinfo.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,6 +13,8 @@ import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import artistsinfo.R;
 
 public class ImageDownloaderTask extends AsyncTask<String, Void, Bitmap> {
     private WeakReference<ImageView> imageViewReference;
