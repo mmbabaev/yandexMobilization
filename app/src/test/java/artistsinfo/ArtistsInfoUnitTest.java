@@ -1,8 +1,11 @@
-package mbabaev.artistsinfo;
+package artistsinfo;
 
 import org.junit.Test;
 
 import java.util.List;
+
+import artistsinfo.model.Artist;
+import artistsinfo.model.Helper;
 
 import static org.junit.Assert.*;
 
